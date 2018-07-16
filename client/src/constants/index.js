@@ -1,0 +1,2 @@
+export const REGISTER_USER_SUBMIT = 'REGISTER_USER_SUBMIT';
+export const GET_ERRORS = 'GET_ERRORS';
