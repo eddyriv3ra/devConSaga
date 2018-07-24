@@ -1,12 +1,22 @@
-import { REGISTER_USER_SUBMIT, GET_ERRORS } from "../constants";
+import { 
+  REGISTER_USER, 
+  GET_ERRORS,
+  SET_CURRENT_USER,
+} from "../constants";
 
 
-export const submitUser = data => ({
-  type: REGISTER_USER_SUBMIT,
-  data,
+export const submitUser = userData => ({
+  type: REGISTER_USER,
+  userData,
 });
 
-export const submitUserError = errors => ({
+export const authErrors = errors => ({
   type: GET_ERRORS,
   errors,
+});
+
+
+export const loginUser = userData => ({
+  type: SET_CURRENT_USER,
+  userData,
 });

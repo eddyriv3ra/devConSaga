@@ -1,11 +1,16 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import combinedReducers from '../reducers';
+import combinedReducers from './combinedReducers';
 import rootSaga from './rootSaga';
+import { Map } from 'immutable';
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(combinedReducers,
+const initialState = Map();
+
+const store = createStore(
+  combinedReducers,
+  initialState,
   compose(
     applyMiddleware(
     sagaMiddleware,

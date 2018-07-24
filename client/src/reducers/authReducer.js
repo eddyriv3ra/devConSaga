@@ -1,14 +1,12 @@
 import { fromJS } from 'immutable';
-import { REGISTER_USER_SUBMIT } from '../constants'
+import { SET_CURRENT_USER } from '../constants'
 
-const initialState = fromJS({
-  user: 'Pablo'
-});
+const initialState = fromJS({});
 
 const auth = (state = initialState, action) => {
   switch(action.type) {
-    case REGISTER_USER_SUBMIT:
-      return state.setIn(['user'], action.userData);
+    case SET_CURRENT_USER:
+      return state.set('user', action.userData);
     default:
       return state;
   }

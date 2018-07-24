@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import { connect } from "react-redux";
-import { submitUser } from '../../actions/authActions'
+import { withRouter } from "react-router-dom";
 
 class Register extends Component {
  state = {
@@ -25,14 +24,15 @@ componentWillReceiveProps(nextProps) {
   onSubmit= (e) => {
     e.preventDefault();
 
-    const newUser = {
+    const userData = {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2
     };
+    
+    this.props.submitUser(userData);
 
-    this.props.submitUser(newUser);
   }
 
   render() {
@@ -122,12 +122,5 @@ componentWillReceiveProps(nextProps) {
   }
 }
 
-const mapStateToProps = state => ({
-  errors: state.errors
-});
 
-const mapDispatchToProps = dispatch => ({
-  submitUser: (newUser) => dispatch(submitUser(newUser))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default withRouter(Register);
