@@ -1,14 +1,37 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import Navbar from './components/layout/Navbar';
+import jwt_decode from 'jwt-decode';
+import setAuthToken from './utils/setAuthToken';
+import { loginUserSuccess, logoutUserSuccess } from './actions/authActions';
+import Navbar from './components/layout/Navbar.container';
 import Footer from './components/layout/Footer';
-import Landing from './components/layout/Landing';
+import Landing from './components/layout/Landing.container';
 import Register from './components/auth/Register.container';
 import Login from './components/auth/Login.container';
 import store from './store/store';
 
 import './App.css';
+
+// check from token
+if(localStorage.jwtToken) {
+  // Set auth token header auth
+  setAuthToken(localStorage.jwtToken);
+  // decode token and get user info and exp
+  const decoded = jwt_decode(localStorage.jwtToken);
+  //Set user and isAuthenticated
+  store.dispatch(loginUserSuccess(decoded));
+
+  // Check for expired token
+  const currentTime = Date.now() / 1000;
+  if(decoded.exp < currentTime) {
+    // Logout user
+    store.dispatch(logoutUserSuccess());
+    // Clear current profile
+    // Redirect to login
+    window.location.href ='/login'
+  }
+}
 
 class App extends Component {
   render() {

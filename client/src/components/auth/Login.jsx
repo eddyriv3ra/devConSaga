@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
+import { withRouter } from 'react-router-dom'
 
 class Login extends Component {
     state = {
@@ -8,8 +9,17 @@ class Login extends Component {
       errors: {}
     };
 
+    componentDidMount() {
+      if(this.props.isAuthenticated) {
+        this.props.history.push('/dashboard')
+      }
+    }
+
   componentWillReceiveProps(nextProps) {
-    if(nextProps.errors){
+    if (nextProps.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+    if(nextProps.errors) {
       this.setState({errors: nextProps.errors})
     }
   }
@@ -30,6 +40,7 @@ class Login extends Component {
   }
 
   render() {
+    console.log('PROPS', this.props)
     const { errors } = this.state;
     return (
       <div className="login">
@@ -81,4 +92,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);
