@@ -41,7 +41,6 @@ export function* logoutUserRequest(action) {
   try {
     localStorage.removeItem('jwtToken');
     setAuthToken(false);
-    console.log('ACTION', action.data)
     yield put(logoutUserSuccess(action.data))
   } catch(e){
     console.log(e)
