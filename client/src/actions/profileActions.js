@@ -3,6 +3,7 @@ import {
   GET_PROFILE_ERRORS,
   GET_PROFILE_SUCCESS,
   CLEAR_CURRENT_PROFILE,
+  CREATE_PROFILE,
 } from '../constants'
 
 export const getCurrentProfile = () => ({
@@ -21,4 +22,9 @@ export const profileErrors = () => ({
 
 export const clearCurrentProfile = () => ({
   type: CLEAR_CURRENT_PROFILE,
-})
+});
+
+export const createProfile = profileData => ({
+  type: CREATE_PROFILE,
+  profileData,
+});
