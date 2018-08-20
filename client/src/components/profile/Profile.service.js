@@ -1,6 +1,5 @@
 import axios from 'axios';
 
 export const profileServiceSubmit = () => {
-    const response = axios.get('/api/profile')
-    return response;
+    return axios.get('/api/profile')
 };

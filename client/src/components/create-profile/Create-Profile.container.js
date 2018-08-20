@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import CreateProfile from './Create-Profile';
-import { getProfile } from '../dashboard/Dashboard.selector';
 import { getErrors } from '../auth/Errors.selector';
+import { getSuccess } from '../dashboard/Dashboard.selector';
 import { createProfile } from '../../actions/profileActions';
 
 const mapDispatchToProps = dispatch => ({
@@ -9,8 +9,8 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  profile: getProfile(state),
   errors: getErrors(state),
+  success: getSuccess(state),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateProfile);

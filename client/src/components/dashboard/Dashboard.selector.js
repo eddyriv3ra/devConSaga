@@ -10,4 +10,9 @@ export const getProfile = createSelector(
 export const getStatus = createSelector(
   profileSelector,
   (profile) => profile.get('loading')
-)
+);
+
+export const getSuccess = createSelector(
+  profileSelector,
+  (profile) => profile.get('createProfile')
+);

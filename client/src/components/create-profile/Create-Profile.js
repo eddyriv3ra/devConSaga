@@ -15,7 +15,7 @@ class CreateProfile extends Component {
     location: '',
     status: '',
     skills: '',
-    gitusername: '',
+    githubusername: '',
     bio: '',
     twitter: '',
     facebook: '',
@@ -35,7 +35,7 @@ class CreateProfile extends Component {
     location: this.state.location,
     status: this.state.status,
     skills: this.state.skills,
-    gitusername: this.state.gitusername,
+    githubusername: this.state.githubusername,
     bio: this.state.bio,
     twitter: this.state.twitter,
     facebook: this.state.facebook,
@@ -43,8 +43,7 @@ class CreateProfile extends Component {
     youtube: this.state.youtube,
     instagram: this.state.instagram,
     }
-
-    this.props.createProfile(profileData);
+    this.props.createProfile(profileData)
   }
   onChange = (e) => {
     this.setState({[e.target.name]: e.target.value})
@@ -54,9 +53,14 @@ class CreateProfile extends Component {
     if(nextProps.errors) {
       this.setState({ errors: nextProps.errors })
     }
+
+    if(nextProps.success) {
+      this.props.history.push('/dashboard')
+    }
   }
 
-  onClick = () => {
+  onClick = (e) => {
+    e.preventDefault()
     this.setState(prevState => ({
       displaySocialInputs: !prevState.displaySocialInputs
     }));
@@ -200,7 +204,9 @@ class CreateProfile extends Component {
                   info="Tell us a little about yourself"
                 />
                 <div className="mb-3">
-                  <button onClick={this.onClick} className="btn btn-light">
+                  <button 
+                    type='button'
+                    onClick={this.onClick} className="btn btn-light">
                     Add Social Network Links
                   </button>
                   <span className='text-muted'>Optional</span>

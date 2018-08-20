@@ -4,15 +4,16 @@ import {
   GET_PROFILE_SUCCESS,
   CLEAR_CURRENT_PROFILE,
   CREATE_PROFILE,
+  CREATE_PROFILE_SUCCESS,
 } from '../constants'
 
 export const getCurrentProfile = () => ({
   type: GET_PROFILE,
 });
 
-export const getCurrentProfileSuccess = (profile) => ({
+export const getCurrentProfileSuccess = (profileData) => ({
   type: GET_PROFILE_SUCCESS,
-  profile,
+  profileData,
 });
 
 export const profileErrors = () => ({
@@ -26,5 +27,10 @@ export const clearCurrentProfile = () => ({
 
 export const createProfile = profileData => ({
   type: CREATE_PROFILE,
+  profileData,
+});
+
+export const createProfileSuccess = profileData => ({
+  type: CREATE_PROFILE_SUCCESS,
   profileData,
 });
