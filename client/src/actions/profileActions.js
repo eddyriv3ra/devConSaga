@@ -5,6 +5,8 @@ import {
   CLEAR_CURRENT_PROFILE,
   CREATE_PROFILE,
   CREATE_PROFILE_SUCCESS,
+  DELETE_ACCOUNT,
+  DELETE_ACCOUNT_SUCCESS,
 } from '../constants'
 
 export const getCurrentProfile = () => ({
@@ -34,3 +36,11 @@ export const createProfileSuccess = profileData => ({
   type: CREATE_PROFILE_SUCCESS,
   profileData,
 });
+
+export const deleteAccount = () => ({
+  type: DELETE_ACCOUNT,
+});
+
+export const deleteAccountSuccess = () => ({
+  type: DELETE_ACCOUNT_SUCCESS
+})

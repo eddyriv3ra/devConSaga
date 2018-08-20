@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Dashboard from './Dashboard';
-import { getCurrentProfile } from '../../actions/profileActions';
+import { getCurrentProfile, deleteAccount } from '../../actions/profileActions';
 import { getProfile, getStatus } from './Dashboard.selector';
 import { getUser } from '../auth/Auth.selector';
 
@@ -11,7 +11,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getCurrentProfile: () => dispatch(getCurrentProfile())
+  getCurrentProfile: () => dispatch(getCurrentProfile()),
+  deleteAccount: () => dispatch(deleteAccount()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

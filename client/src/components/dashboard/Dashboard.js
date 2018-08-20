@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import Spinner from '../common/Spinner';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import ProfileActions from './ProfileActions';
 
 class Dashboard extends Component {
 
   componentDidMount() {
     this.props.getCurrentProfile()
+  }
+
+  onDeleteClick = () => {
+    this.props.deleteAccount();
   }
   render() {
     const { user, profile, loading } = this.props;
@@ -16,7 +21,20 @@ class Dashboard extends Component {
       dashboardContent = <Spinner/>
     } else {
       if(Object.keys(profile).length > 0) {
-        dashboardContent = <h4>DISPLAY PROFILE</h4>
+        dashboardContent = (
+          <div>
+            <p className="lead text-muted">Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link></p>
+            <ProfileActions />
+            {/* TODO: exp and edu*/}
+            <div style={{ marginBottom: '60px' }} />
+            <button 
+              onClick={this.onDeleteClick}
+              className='btn btn-danger'
+              >
+              Delete My Account
+            </button>
+          </div>
+        );
       } else {
         dashboardContent =(
           <div>

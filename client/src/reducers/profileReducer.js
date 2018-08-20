@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable';
-import { GET_PROFILE_SUCCESS, GET_PROFILE_ERRORS, CLEAR_CURRENT_PROFILE, GET_PROFILE, CREATE_PROFILE_SUCCESS } from '../constants'
+import { GET_PROFILE_SUCCESS, GET_PROFILE_ERRORS, CLEAR_CURRENT_PROFILE, GET_PROFILE, CREATE_PROFILE_SUCCESS, DELETE_ACCOUNT_SUCCESS } from '../constants'
 
 const initialState = fromJS({
   profile: null,
@@ -29,6 +29,10 @@ const profiles = (state = initialState, action) => {
     case CLEAR_CURRENT_PROFILE:
       return state
         .set('profile', null)
+    case DELETE_ACCOUNT_SUCCESS:
+      return state
+        .set('profile', {})
+        .set('loading', false)
     default:
       return state;
   }
