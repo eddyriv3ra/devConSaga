@@ -12,6 +12,8 @@ import Login from './components/auth/Login.container';
 import Dashboard from './components/dashboard/Dashboard.container';
 import CreateProfile from './components/create-profile/Create-Profile.container';
 import EditProfile from './components/edit-profile/Edit-Profile.container';
+import AddExperience from './components/add-credentials/AddExperience.container';
+import AddEducation from './components/add-credentials/AddEducation.container';
 import store from './store/store';
 
 import './App.css';
@@ -58,6 +60,12 @@ class App extends Component {
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/add-experience" component={AddExperience} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/add-education" component={AddEducation} />
               </Switch>
             </div>
             <Footer />

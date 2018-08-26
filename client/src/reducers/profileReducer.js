@@ -1,5 +1,9 @@
 import { fromJS } from 'immutable';
-import { GET_PROFILE_SUCCESS, GET_PROFILE_ERRORS, CLEAR_CURRENT_PROFILE, GET_PROFILE, CREATE_PROFILE_SUCCESS, DELETE_ACCOUNT_SUCCESS } from '../constants'
+import { GET_PROFILE_SUCCESS, GET_PROFILE_ERRORS, CLEAR_CURRENT_PROFILE, GET_PROFILE, CREATE_PROFILE_SUCCESS,
+  DELETE_ACCOUNT_SUCCESS,
+  ADD_EXPERIENCE_SUCCESS,
+  ADD_EDUCATION_SUCCESS,
+} from '../constants'
 
 const initialState = fromJS({
   profile: null,
@@ -17,6 +21,7 @@ const profiles = (state = initialState, action) => {
      return state
       .set('profile', action.profileData)
       .set('loading', false)
+      .set('createProfile', false)
     case GET_PROFILE_ERRORS:
       return state
         .set('profile', action.profile)
@@ -33,6 +38,14 @@ const profiles = (state = initialState, action) => {
       return state
         .set('profile', {})
         .set('loading', false)
+    case ADD_EXPERIENCE_SUCCESS:
+      return state
+        .set('profile', action.expData)
+        .set('createProfile', true)
+    case ADD_EDUCATION_SUCCESS:
+    return state
+      .set('profile', action.eduData)
+      .set('createProfile', true)
     default:
       return state;
   }

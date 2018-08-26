@@ -7,6 +7,12 @@ import {
   CREATE_PROFILE_SUCCESS,
   DELETE_ACCOUNT,
   DELETE_ACCOUNT_SUCCESS,
+  ADD_EXPERIENCE,
+  ADD_EXPERIENCE_SUCCESS,
+  ADD_EDUCATION,
+  ADD_EDUCATION_SUCCESS,
+  DELETE_EXPERIENCE,
+  DELETE_EDUCATION,
 } from '../constants'
 
 export const getCurrentProfile = () => ({
@@ -44,3 +50,33 @@ export const deleteAccount = () => ({
 export const deleteAccountSuccess = () => ({
   type: DELETE_ACCOUNT_SUCCESS
 })
+
+export const addExperience = (expData) => ({
+  type: ADD_EXPERIENCE,
+  expData,
+});
+
+export const addExperienceSuccess = (expData) => ({
+  type: ADD_EXPERIENCE_SUCCESS,
+  expData,
+});
+
+export const addEducation = eduData => ({
+  type: ADD_EDUCATION,
+  eduData,
+});
+
+export const addEducationSuccess = eduData => ({
+  type: ADD_EDUCATION_SUCCESS,
+  eduData,
+});
+
+export const deleteExperience = id => ({
+  type: DELETE_EXPERIENCE,
+  id,
+});
+
+export const deleteEducation = id => ({
+  type: DELETE_EDUCATION,
+  id,
+});

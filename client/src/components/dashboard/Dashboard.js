@@ -2,15 +2,22 @@ import React, { Component } from 'react';
 import Spinner from '../common/Spinner';
 import {Link} from 'react-router-dom';
 import ProfileActions from './ProfileActions';
+import Experience from './Experience';
+import Education from './Education';
 
 class Dashboard extends Component {
 
   componentDidMount() {
     this.props.getCurrentProfile()
   }
-
   onDeleteClick = () => {
     this.props.deleteAccount();
+  }
+  onDeleteExp = id => {
+    this.props.deleteExperience(id);
+  }
+  onDeleteEdu = id => {
+    this.props.deleteEducation(id);
   }
   render() {
     const { user, profile, loading } = this.props;
@@ -25,7 +32,14 @@ class Dashboard extends Component {
           <div>
             <p className="lead text-muted">Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link></p>
             <ProfileActions />
-            {/* TODO: exp and edu*/}
+            <Experience 
+              experience={profile.experience}
+              onDeleteClickExp={this.onDeleteExp}
+            />
+            <Education 
+              education={profile.education}
+              onDeleteClickEdu={this.onDeleteEdu}
+            />
             <div style={{ marginBottom: '60px' }} />
             <button 
               onClick={this.onDeleteClick}

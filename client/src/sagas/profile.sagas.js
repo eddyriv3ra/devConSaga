@@ -1,9 +1,21 @@
-import { takeEvery, all, put } from 'redux-saga/effects';
-import { GET_PROFILE, CREATE_PROFILE, DELETE_ACCOUNT } from '../constants';
+import { takeEvery, all, put, call } from 'redux-saga/effects';
+import { GET_PROFILE, CREATE_PROFILE, DELETE_ACCOUNT, ADD_EXPERIENCE, ADD_EDUCATION, DELETE_EXPERIENCE, DELETE_EDUCATION } from '../constants';
 import { profileServiceSubmit } from '../components/profile/Profile.service'
 import { profileCreateServiceSubmit } from '../components/profile/ProfileCreate.service';
 import { deleteAccountService } from '../components/profile/ProfileDelete.service';
-import { profileErrors, getCurrentProfileSuccess, createProfileSuccess, deleteAccountSuccess } from '../actions/profileActions';
+import { profileAddExperienceSubmit } from '../components/profile/ProfileAddExperience.service';
+import { profileAddEducationSubmit } from '../components/profile/ProfileAddEducation.service';
+import { deleteExperienceService } from '../components/profile/ProfileDeleteExperience.service';
+import { deleteEducationService } from '../components/profile/ProfileDeleteEducation.service';
+import {
+  profileErrors,
+  getCurrentProfileSuccess,
+  createProfileSuccess,
+  deleteAccountSuccess,
+  addExperienceSuccess,
+  addEducationSuccess,
+} from '../actions/profileActions';
+import { authErrors } from '../actions/authActions';
 
 export function* profileRequest() {
   try {
@@ -23,6 +35,42 @@ export function* createProfileRequest(action) {
   }
 }
 
+export function* addExperienceRequest(action) {
+  try {
+    const res = yield profileAddExperienceSubmit(action.expData)
+    yield put(addExperienceSuccess(res.data))
+  } catch (e) {
+    yield put(authErrors(e.response.data))
+  }
+}
+
+export function* addEducationRequest(action) {
+  try {
+    const res = yield profileAddEducationSubmit(action.eduData)
+    yield put(addEducationSuccess(res.data))
+  } catch (e) {
+    yield put(authErrors(e.response.data))
+  }
+}
+
+export function* removeExperienceRequest(action) {
+  try {
+    yield deleteExperienceService(action.id)
+    yield call(profileRequest)
+  } catch (e) {
+    yield put(authErrors(e.response.data))
+  }
+}
+
+export function* removeEducationRequest(action) {
+  try {
+    yield deleteEducationService(action.id)
+    yield call(profileRequest)
+  } catch (e) {
+    yield put(authErrors(e.response.data))
+  }
+}
+
 export function* deleteAccountRequest() {
   try {
     if(window.confirm('Are you sure? This can not be undone')) {
@@ -39,5 +87,9 @@ export default function* root() {
     takeEvery(GET_PROFILE, profileRequest),
     takeEvery(CREATE_PROFILE, createProfileRequest),
     takeEvery(DELETE_ACCOUNT, deleteAccountRequest),
+    takeEvery(ADD_EXPERIENCE, addExperienceRequest),
+    takeEvery(ADD_EDUCATION, addEducationRequest),
+    takeEvery(DELETE_EXPERIENCE, removeExperienceRequest),
+    takeEvery(DELETE_EDUCATION, removeEducationRequest)
   ])
 }
