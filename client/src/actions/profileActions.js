@@ -13,6 +13,10 @@ import {
   ADD_EDUCATION_SUCCESS,
   DELETE_EXPERIENCE,
   DELETE_EDUCATION,
+  GET_PROFILES,
+  GET_PROFILES_SUCCESS,
+  GET_PROFILE_BY_HANDLE,
+  GET_PROFILE_BY_HANDLE_SUCCESS,
 } from '../constants'
 
 export const getCurrentProfile = () => ({
@@ -79,4 +83,23 @@ export const deleteExperience = id => ({
 export const deleteEducation = id => ({
   type: DELETE_EDUCATION,
   id,
+});
+
+export const getProfiles = () => ({
+  type: GET_PROFILES,
+});
+
+export const getProfilesSuccess = data => ({
+  type: GET_PROFILES_SUCCESS,
+  data,
+});
+
+export const getProfileByHandle = handle => ({
+  type: GET_PROFILE_BY_HANDLE,
+  handle,
+});
+
+export const getProfileByHandleSuccess = handle => ({
+  type: GET_PROFILE_BY_HANDLE_SUCCESS,
+  handle,
 });

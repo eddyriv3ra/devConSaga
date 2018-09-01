@@ -1,5 +1,14 @@
 import { takeEvery, all, put, call } from 'redux-saga/effects';
-import { GET_PROFILE, CREATE_PROFILE, DELETE_ACCOUNT, ADD_EXPERIENCE, ADD_EDUCATION, DELETE_EXPERIENCE, DELETE_EDUCATION } from '../constants';
+import { GET_PROFILE,
+  CREATE_PROFILE,
+  DELETE_ACCOUNT,
+  ADD_EXPERIENCE,
+  ADD_EDUCATION,
+  DELETE_EXPERIENCE,
+  DELETE_EDUCATION,
+  GET_PROFILES,
+  GET_PROFILE_BY_HANDLE,
+} from '../constants';
 import { profileServiceSubmit } from '../components/profile/Profile.service'
 import { profileCreateServiceSubmit } from '../components/profile/ProfileCreate.service';
 import { deleteAccountService } from '../components/profile/ProfileDelete.service';
@@ -7,6 +16,8 @@ import { profileAddExperienceSubmit } from '../components/profile/ProfileAddExpe
 import { profileAddEducationSubmit } from '../components/profile/ProfileAddEducation.service';
 import { deleteExperienceService } from '../components/profile/ProfileDeleteExperience.service';
 import { deleteEducationService } from '../components/profile/ProfileDeleteEducation.service';
+import { allProfilesServiceSubmit } from '../components/profile/Profiles.service';
+import { profileHandleServiceSubmit } from '../components/profile/ProfileHandle.service'
 import {
   profileErrors,
   getCurrentProfileSuccess,
@@ -14,6 +25,8 @@ import {
   deleteAccountSuccess,
   addExperienceSuccess,
   addEducationSuccess,
+  getProfilesSuccess,
+  getProfileByHandleSuccess,
 } from '../actions/profileActions';
 import { authErrors } from '../actions/authActions';
 
@@ -21,6 +34,24 @@ export function* profileRequest() {
   try {
     const res = yield profileServiceSubmit()
     yield put(getCurrentProfileSuccess(res.data))
+  }catch (e){
+    yield put(profileErrors(e.response.data))
+  }
+}
+
+export function* profilesRequest() {
+  try {
+    const res = yield allProfilesServiceSubmit()
+    yield put(getProfilesSuccess(res.data))
+  }catch (e){
+    yield put(profileErrors(e.response.data))
+  }
+}
+
+export function* profileHandleRequest(action) {
+  try {
+    const res = yield profileHandleServiceSubmit(action.handle)
+    yield put(getProfileByHandleSuccess(res.data))
   }catch (e){
     yield put(profileErrors(e.response.data))
   }
@@ -90,6 +121,8 @@ export default function* root() {
     takeEvery(ADD_EXPERIENCE, addExperienceRequest),
     takeEvery(ADD_EDUCATION, addEducationRequest),
     takeEvery(DELETE_EXPERIENCE, removeExperienceRequest),
-    takeEvery(DELETE_EDUCATION, removeEducationRequest)
+    takeEvery(DELETE_EDUCATION, removeEducationRequest),
+    takeEvery(GET_PROFILES, profilesRequest),
+    takeEvery(GET_PROFILE_BY_HANDLE, profileHandleRequest),
   ])
 }

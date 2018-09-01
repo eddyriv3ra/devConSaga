@@ -16,3 +16,8 @@ export const getSuccess = createSelector(
   profileSelector,
   (profile) => profile.get('createProfile')
 );
+
+export const getAllProfiles = createSelector(
+  profileSelector,
+  (profile) => profile.get('profiles')
+);

@@ -3,6 +3,8 @@ import { GET_PROFILE_SUCCESS, GET_PROFILE_ERRORS, CLEAR_CURRENT_PROFILE, GET_PRO
   DELETE_ACCOUNT_SUCCESS,
   ADD_EXPERIENCE_SUCCESS,
   ADD_EDUCATION_SUCCESS,
+  GET_PROFILES_SUCCESS,
+  GET_PROFILE_BY_HANDLE_SUCCESS,
 } from '../constants'
 
 const initialState = fromJS({
@@ -24,7 +26,7 @@ const profiles = (state = initialState, action) => {
       .set('createProfile', false)
     case GET_PROFILE_ERRORS:
       return state
-        .set('profile', action.profile)
+        .set('profile', null)
         .set('loading', false)
     case CREATE_PROFILE_SUCCESS:
       return state
@@ -43,9 +45,17 @@ const profiles = (state = initialState, action) => {
         .set('profile', action.expData)
         .set('createProfile', true)
     case ADD_EDUCATION_SUCCESS:
+      return state
+        .set('profile', action.eduData)
+        .set('createProfile', true)
+    case GET_PROFILES_SUCCESS:
+      return state
+        .set('profiles', action.data)
+        .set('loading', false)
+    case GET_PROFILE_BY_HANDLE_SUCCESS:
     return state
-      .set('profile', action.eduData)
-      .set('createProfile', true)
+      .set('profile', action.handle)
+      .set('loading', false)
     default:
       return state;
   }
